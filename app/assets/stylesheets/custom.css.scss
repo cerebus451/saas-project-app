@@ -7,7 +7,7 @@
   
   a
   {
-    color: black !important;
+    color: white !important;
     margin: 0 !important;
     padding: 5px !important;
   }
@@ -163,4 +163,20 @@
   {
     background: none;
   }
+}
+
+.fa.fa-rocket
+{
+  background: #fff;
+  border: 1px solid white;
+  border-radius: 20px;
+  color: red;
+  padding: 6px;
+}
+
+.navbar.navbar-static-top
+{
+  background: #000;
+  color: #fff !important;
+  padding-bottom: 5px;
 }
