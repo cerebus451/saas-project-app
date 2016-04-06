@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405001410) do
+ActiveRecord::Schema.define(version: 20160405233512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "artifacts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "key"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "artifacts", ["project_id"], name: "index_artifacts_on_project_id", using: :btree
 
   create_table "members", force: :cascade do |t|
     t.integer  "tenant_id"
@@ -27,6 +37,17 @@ ActiveRecord::Schema.define(version: 20160405001410) do
 
   add_index "members", ["tenant_id"], name: "index_members_on_tenant_id", using: :btree
   add_index "members", ["user_id"], name: "index_members_on_user_id", using: :btree
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "title"
+    t.string   "details"
+    t.date     "expected_completion_date"
+    t.integer  "tenant_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "projects", ["tenant_id"], name: "index_projects_on_tenant_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
@@ -81,7 +102,9 @@ ActiveRecord::Schema.define(version: 20160405001410) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "artifacts", "projects"
   add_foreign_key "members", "tenants"
   add_foreign_key "members", "users"
+  add_foreign_key "projects", "tenants"
   add_foreign_key "tenants", "tenants"
 end

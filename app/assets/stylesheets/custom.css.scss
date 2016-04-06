@@ -152,3 +152,15 @@
   border-radius: 5px;
   margin-right: 5px;
 }
+
+.table tr td
+{
+  a.main-link
+  {
+    color: #428bca;
+  }
+  a.main-link:hover
+  {
+    background: none;
+  }
+}

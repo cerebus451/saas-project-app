@@ -2,9 +2,14 @@ class Tenant < ActiveRecord::Base
 
    acts_as_universal_and_determines_tenant
   has_many :members, dependent: :destroy
+  has_many :projects, dependent: :destroy
   validates_uniqueness_of :name
   validates_presence_of :name
   
+    def can_create_projects?
+      return (plan == 'premium') || (projects.count < 1)
+    end
+    
     def self.create_new_tenant(tenant_params, user_params, coupon_params)
 
       tenant = Tenant.new(tenant_params)
